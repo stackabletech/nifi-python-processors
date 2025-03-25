@@ -17,7 +17,7 @@ class TextSentimentAnalysis(FlowFileTransform):
         sentiment_pipeline = pipeline("sentiment-analysis")
 
         try:
-            input = [flowfile.getContentsAsBytes()]
+            input = flowfile.getContentsAsBytes()
             output = sentiment_pipeline(input)
             
             # Set the MIME type attribute to CSV
