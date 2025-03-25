@@ -11,14 +11,21 @@ class TextSentimentAnalysis(FlowFileTransform):
         pass
 
     def transform(self, context, flowfile):
+        # Import Python dependencies
         from transformers import pipeline
-        sentiment_pipeline = pipeline("sentiment-analysis")
+
+        model_id = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+        sentiment_pipeline = pipeline("sentiment-analysis", model=model_id)
 
         try:
-            sentiment = sentiment_pipeline(str(flowfile.getContentsAsBytes()))
+            input = str(flowfile.getContentsAsBytes())
+            self.logger.info(f"Test to process: {input}")
+            output = sentiment_pipeline(input)
+            
+            # Set the MIME type attribute to CSV
             attrs = {}
-            attrs['sentiment.label'] = sentiment['label']
-            attrs['sentiment.score'] = sentiment['score']
+            attrs['sentiment.label'] = output['label']
+            attrs['sentiment.score'] = output['score']
 
             return FlowFileTransformResult(
             relationship = "success",
