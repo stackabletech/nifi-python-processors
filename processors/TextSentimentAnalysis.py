@@ -23,10 +23,10 @@ class TextSentimentAnalysis(FlowFileTransform):
             # Set the MIME type attribute to CSV
             attrs = dict()
             attrs['mime.type'] = "application/json"
+            attrs['sentiment'] = output
 
             return FlowFileTransformResult(
             relationship = "success",
-            contents = output,
             attributes = attrs
             )
 
