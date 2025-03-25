@@ -22,7 +22,7 @@ class TextSentimentAnalysis(FlowFileTransform):
             output = sentiment_pipeline(input)
             
             # Set the MIME type attribute to CSV
-            attrs = dict()
+            attrs = {}
             attrs['mime.type'] = "application/json"
             attrs['sentiment'] = str(output)
 
