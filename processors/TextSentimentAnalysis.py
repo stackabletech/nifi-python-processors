@@ -18,7 +18,7 @@ class TextSentimentAnalysis(FlowFileTransform):
 
         try:
             input = str(flowfile.getContentsAsBytes())
-            self.logger.info(f"Test to process: {input}")
+            self.logger.info(f"Text to process: {input}")
             output = sentiment_pipeline(input)
             
             # Set the MIME type attribute to CSV
@@ -34,4 +34,3 @@ class TextSentimentAnalysis(FlowFileTransform):
         except Exception as e:
             self.logger.error(e)
             return FlowFileTransformResult(relationship = "failure")
-        
