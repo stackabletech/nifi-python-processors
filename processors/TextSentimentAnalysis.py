@@ -11,20 +11,14 @@ class TextSentimentAnalysis(FlowFileTransform):
         pass
 
     def transform(self, context, flowfile):
-        # Import Python dependencies
         from transformers import pipeline
-
         sentiment_pipeline = pipeline("sentiment-analysis")
 
         try:
-            input = str(flowfile.getContentsAsBytes())
-            self.logger.info(f"Text to process: {input}")
-            output = sentiment_pipeline(input)
-            
-            # Set the MIME type attribute to CSV
+            sentiment = sentiment_pipeline(flowfile.getContentsAsBytes())
             attrs = {}
-            attrs['mime.type'] = "application/json"
-            attrs['sentiment'] = str(output)
+            attrs['sentiment.label'] = sentiment['label']
+            attrs['sentiment.score'] = sentiment['score']
 
             return FlowFileTransformResult(
             relationship = "success",
