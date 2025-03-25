@@ -15,7 +15,7 @@ class TextSentimentAnalysis(FlowFileTransform):
         sentiment_pipeline = pipeline("sentiment-analysis")
 
         try:
-            sentiment = sentiment_pipeline(flowfile.getContentsAsBytes())
+            sentiment = sentiment_pipeline(str(flowfile.getContentsAsBytes()))
             attrs = {}
             attrs['sentiment.label'] = sentiment['label']
             attrs['sentiment.score'] = sentiment['score']
