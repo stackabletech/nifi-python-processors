@@ -20,11 +20,11 @@ class TextSentimentAnalysis(FlowFileTransform):
         try:
             input = str(flowfile.getContentsAsBytes())
             self.logger.info(f"Text to process: {input}")
-            output = sentiment_pipeline(input)[0]
+            output = sentiment_pipeline(input)
             
             attrs = {}
-            attrs['sentiment.label'] = output['label']
-            attrs['sentiment.score'] = output['score']
+            attrs['sentiment.label'] = output[0]['label']
+            attrs['sentiment.score'] = output[0]['score']
 
             return FlowFileTransformResult(
             relationship = "success",
