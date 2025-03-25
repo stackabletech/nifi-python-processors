@@ -19,13 +19,12 @@ class TextSentimentAnalysis(FlowFileTransform):
 
         try:
             input = str(flowfile.getContentsAsBytes())
-            self.logger.info(f"Test to process: {input}")
-            output = sentiment_pipeline(input)
+            self.logger.info(f"Text to process: {input}")
+            output = sentiment_pipeline(input)[0]
             
-            # Set the MIME type attribute to CSV
             attrs = {}
-            attrs['sentiment.label'] = str(output['label'])
-            attrs['sentiment.score'] = str(output['score'])
+            attrs['sentiment.label'] = output['label']
+            attrs['sentiment.score'] = output['score']
 
             return FlowFileTransformResult(
             relationship = "success",
