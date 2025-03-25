@@ -24,8 +24,8 @@ class TextSentimentAnalysis(FlowFileTransform):
             
             # Set the MIME type attribute to CSV
             attrs = {}
-            attrs['sentiment.label'] = output['label']
-            attrs['sentiment.score'] = output['score']
+            attrs['sentiment.label'] = str(output['label'])
+            attrs['sentiment.score'] = str(output['score'])
 
             return FlowFileTransformResult(
             relationship = "success",
