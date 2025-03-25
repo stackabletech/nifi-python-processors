@@ -24,7 +24,7 @@ class TextSentimentAnalysis(FlowFileTransform):
             
             attrs = {}
             attrs['sentiment.label'] = output[0]['label']
-            attrs['sentiment.score'] = output[0]['score']
+            attrs['sentiment.score'] = str(output[0]['score'])
 
             return FlowFileTransformResult(
             relationship = "success",
