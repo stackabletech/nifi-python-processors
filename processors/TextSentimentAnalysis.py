@@ -1,4 +1,5 @@
 from nifiapi.flowfiletransform import FlowFileTransform, FlowFileTransformResult
+from transformers import pipeline
 
 class TextSentimentAnalysis(FlowFileTransform):
     class Java:
@@ -11,8 +12,8 @@ class TextSentimentAnalysis(FlowFileTransform):
         pass
 
     def transform(self, context, flowfile):
-        # Import Python dependencies
-        from transformers import pipeline
+        # # Import Python dependencies
+        # from transformers import pipeline
 
         model_id = "cardiffnlp/twitter-roberta-base-sentiment-latest"
         sentiment_pipeline = pipeline("sentiment-analysis", model=model_id)
